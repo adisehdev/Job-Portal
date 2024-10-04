@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import ResumeModal from "./ResumeModal";
+import Loader from "../Loader/Loader";
 
 function MyApplications() {
   let { isAuthorized, user } = useContext(Context);
@@ -15,6 +16,7 @@ function MyApplications() {
   const [applications, setApplications] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [resumeImageUrl, setResumeImageUrl] = useState("");
+  const [loading,setLoading] = useState(false)
   const backend_url = import.meta.env.VITE_BACKEND_URL;
   
 
@@ -24,23 +26,26 @@ function MyApplications() {
     try {
       if (user && user.role === "Employer") {
         //fetch application api for employer
+        setLoading(true)
         const response = await axios.get(
           `${backend_url}/api/applications/getApplicationsEmployer`,
           {
             withCredentials: true,
           }
         );
+        setLoading(false)
 
         setApplications(response.data.applications);
       } else {
         //fetch application api for user
+        setLoading(true)
         const response = await axios.get(
           `${backend_url}/api/applications/getApplicationsJobSeeker`,
           {
             withCredentials: true,
           }
         );
-
+        setLoading(false)
         setApplications(response.data.applications);
       }
     } catch (error) {
@@ -59,12 +64,14 @@ function MyApplications() {
 
   const deleteApplication = async (id) => {
     try {
+      setLoading(true)
       const response = await axios.delete(
         `${backend_url}/api/applications/deleteApplicationJobSeeker/${id}`,
         {
           withCredentials: true,
         }
       );
+      setLoading(false)
       toast.success(response.data.message);
       setApplications((prev) =>
         prev.filter((prevApplication) => prevApplication._id !== id)
@@ -83,6 +90,8 @@ function MyApplications() {
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  if(loading)return <Loader/>
 
   return (
     <>

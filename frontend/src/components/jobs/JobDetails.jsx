@@ -2,11 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Context } from "../../../context/UserContext";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 function JobDetails() {
   
   const { id } = useParams();
   const [job, setJob] = useState({});
+  const [loading,setLoading] = useState(false)
   let { isAuthorized, user } = useContext(Context);
   const navigate = useNavigate();
   const backend_url = import.meta.env.VITE_BACKEND_URL;
@@ -19,10 +21,11 @@ function JobDetails() {
 
   const getSingleJob = async () => {
     try {
+      setLoading(true)
       const { data } = await axios.get(`${backend_url}/api/jobs/${id}`, {
         withCredentials: true,
       });
-
+      setLoading(false)
       setJob(data.job);
     } catch (error) {
       console.log("Error in fetching single job by job id frontend ", error);
@@ -40,6 +43,8 @@ function JobDetails() {
 
 
   }, [isAuthorized]);
+
+  if(loading)return <Loader/>
 
   
 

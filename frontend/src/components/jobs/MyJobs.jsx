@@ -5,11 +5,13 @@ import { FaCheck } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import { Context } from "../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 
 function MyJobs() {
   const [myJobs, setMyJobs] = useState([]);
   const [editingMode, setEditingMode] = useState(null);
+  const [loading,setLoading] = useState(false)
   let { isAuthorized, user } = useContext(Context);
   if(JSON.stringify(user)==='{}'){
     user = JSON.parse(localStorage.getItem("userObj"))
@@ -19,12 +21,14 @@ function MyJobs() {
   
   const getMyJobs = async () => {
     try {
+      setLoading(true)
       const response = await axios.get(
         `${backend_url}/api/jobs/myJobs`,
         {
           withCredentials: true,
         }
       );
+      setLoading(false)
 
       setMyJobs(response.data.myJobs);
     } catch (error) {
@@ -56,11 +60,13 @@ function MyJobs() {
   const handleUpdateJob = async (jobId) => {
     try {
       const updatedJob = myJobs.find((job) => job._id === jobId);
+      setLoading(true)
       const response = await axios.put(
         `${backend_url}/api/jobs/updateJob/${jobId}`,
         updatedJob,
         { withCredentials: true }
       );
+      setLoading(false)
       toast.success(response.data.message);
       setEditingMode(null);
     } catch (error) {
@@ -72,10 +78,12 @@ function MyJobs() {
   //function to delete job
   const handleDeleteJob = async (jobId) => {
     try {
+      setLoading(true)
       const response = await axios.delete(
         `${backend_url}/api/jobs/deleteJob/${jobId}`,
         { withCredentials: true }
       );
+      setLoading(false)
 
       setMyJobs((prev) => prev.filter((prevJob) => prevJob._id !== jobId));
     } catch (error) {
@@ -91,6 +99,8 @@ function MyJobs() {
       )
     );
   };
+
+  if(loading)return <Loader/>
 
   return (
     <>
@@ -161,7 +171,7 @@ function MyJobs() {
                               )
                             }
                             disabled={
-                              !editingMode !== job._id ? true : false
+                              !editingMode? true : false
                             }
                           >
                             <option value="Graphics & Design">

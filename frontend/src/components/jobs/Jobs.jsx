@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect,useState,useContext } from 'react'
 import { Context } from '../../../context/UserContext'
 import { Link, useNavigate } from 'react-router-dom'
+import Loader from '../Loader/Loader'
 import axios from 'axios'
 
 function Jobs() {
@@ -9,17 +10,20 @@ function Jobs() {
     
     
     const [jobs,setJobs] = useState([])
+    const [loading,setLoading]  = useState(false)
     const navigate = useNavigate()
     const backend_url = import.meta.env.VITE_BACKEND_URL;
 
     const getAllJobs = async()=>{
         try {
+            setLoading(true)
             const response = await axios.get(
                 `${backend_url}/api/jobs/allJobs`,
                 {
                     withCredentials : true,
                 }
             )
+            setLoading(false)
 
             setJobs(response.data.jobs)
         } catch (error) {
@@ -32,7 +36,7 @@ function Jobs() {
         if(!isAuthorized && !JSON.parse(localStorage.getItem("isAuth")))navigate("/")
     },[isAuthorized])
 
-    
+    if(loading)return <Loader/>
 
     return (
         <>

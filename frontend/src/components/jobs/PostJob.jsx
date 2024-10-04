@@ -3,6 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../../context/UserContext";
+import Loader from "../Loader/Loader";
 
 function PostJob() {
   const [title, setTitle] = useState("");
@@ -15,6 +16,7 @@ function PostJob() {
   const [salaryTo, setSalaryTo] = useState("");
   const [fixedSalary, setFixedSalary] = useState("");
   const [salaryType, setSalaryType] = useState("default");
+  const [loading,setLoading] = useState(false)
   const backend_url = import.meta.env.VITE_BACKEND_URL;
 
   let { isAuthorized, user } = useContext(Context);
@@ -38,6 +40,7 @@ function PostJob() {
     }
 
     try {
+      setLoading(true)
       const response = await axios.post(
         `${backend_url}/api/jobs/postJob`,
         fixedSalary.length >= 4
@@ -67,6 +70,7 @@ function PostJob() {
           },
         }
       );
+      setLoading(false)
 
       toast.success(response.data.message);
       navigate("/job/allJobs")
@@ -93,6 +97,8 @@ function PostJob() {
 
     
   },[isAuthorized])
+
+  if(loading)return <Loader/>
   
 
   return (
