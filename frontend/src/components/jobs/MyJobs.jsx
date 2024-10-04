@@ -32,6 +32,7 @@ function MyJobs() {
 
       setMyJobs(response.data.myJobs);
     } catch (error) {
+      setLoading(false)
       console.log("Error in getting myJobs (Employer) in frontend", error);
       toast.error(error.response.data.message);
       setMyJobs([]);
@@ -70,6 +71,7 @@ function MyJobs() {
       toast.success(response.data.message);
       setEditingMode(null);
     } catch (error) {
+      setLoading(false)
       console.log("Error in editing Job in frontend ", error);
       toast.error(error.response.data.message);
     }
@@ -87,6 +89,7 @@ function MyJobs() {
 
       setMyJobs((prev) => prev.filter((prevJob) => prevJob._id !== jobId));
     } catch (error) {
+      setLoading(false)
       toast.error(error.response.data.message);
     }
   };

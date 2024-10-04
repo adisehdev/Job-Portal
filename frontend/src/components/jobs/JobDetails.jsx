@@ -28,6 +28,7 @@ function JobDetails() {
       setLoading(false)
       setJob(data.job);
     } catch (error) {
+      setLoading(false)
       console.log("Error in fetching single job by job id frontend ", error);
       navigate("/notFound");
     }

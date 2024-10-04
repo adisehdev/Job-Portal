@@ -27,6 +27,7 @@ function Jobs() {
 
             setJobs(response.data.jobs)
         } catch (error) {
+            setLoading(false)
             console.log("Error in getting all jobs in frontend ",error)
 
         }

@@ -65,6 +65,7 @@ function ApplicationForm() {
       toast.success(data.message);
       navigate("/job/allJobs");
     } catch (error) {
+      setLoading(false)
       console.log("Error in applying for job in frontend ", error);
       toast.error(error.response.data.message);
     }

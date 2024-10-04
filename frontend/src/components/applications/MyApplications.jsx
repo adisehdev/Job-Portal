@@ -49,6 +49,7 @@ function MyApplications() {
         setApplications(response.data.applications);
       }
     } catch (error) {
+      setLoading(false)
       console.log("Error in fetching applications in frontend ", error);
       toast.error(error.response.data.message);
     }
@@ -77,6 +78,7 @@ function MyApplications() {
         prev.filter((prevApplication) => prevApplication._id !== id)
       );
     } catch (error) {
+      setLoading(false)
       console.log("Error in deleting application in frontend ", error);
       toast.error(error.response.data.message);
     }
