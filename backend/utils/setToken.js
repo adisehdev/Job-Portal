@@ -7,6 +7,7 @@ export const setToken = (user,statusCode,res,message)=>{
         ),
         httpOnly: true, // Set httpOnly to true
         secure : true,
+        sameSite : "None",
       }
       
       
