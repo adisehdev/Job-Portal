@@ -55,7 +55,7 @@ console.log("Application Post Functionality")
   };
 
   const employerId = {
-    user: req.user._id,
+    user: job.postedBy,
     role: "Employer",
   };
 
