@@ -1,0 +1,59 @@
+import React from 'react'
+import { useEffect,useState,useContext } from 'react'
+import { Context } from '../../../context/UserContext'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
+function Jobs() {
+    let {isAuthorized} = useContext(Context)
+    
+    
+    const [jobs,setJobs] = useState([])
+    const navigate = useNavigate()
+    const backend_url = import.meta.env.VITE_BACKEND_URL;
+
+    const getAllJobs = async()=>{
+        try {
+            const response = await axios.get(
+                `${backend_url}/api/jobs/allJobs`,
+                {
+                    withCredentials : true,
+                }
+            )
+
+            setJobs(response.data.jobs)
+        } catch (error) {
+            console.log("Error in getting all jobs in frontend ",error)
+
+        }
+    }
+
+    useEffect(()=>{getAllJobs()
+        if(!isAuthorized && !JSON.parse(localStorage.getItem("isAuth")))navigate("/")
+    },[isAuthorized])
+
+    
+
+    return (
+        <>
+            <section className='jobs page'>
+                <div className='container'>
+                    <h1>All Available Jobs</h1>
+                    <div className='banner'>
+                        {
+                            jobs && jobs.map(
+                                (job)=><div className='card' key={job._id}>
+                                    <p>{job.title}</p>
+                                    <p>{job.category}</p>
+                                    <p>{job.contry}</p>
+                                    <Link to={`/job/${job._id}`}>Job Details</Link>
+                                </div>)
+                        }
+                    </div>
+                </div>
+            </section>
+        </>
+    )
+}
+
+export default Jobs
