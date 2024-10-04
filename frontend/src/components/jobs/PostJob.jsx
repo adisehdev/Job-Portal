@@ -69,6 +69,7 @@ function PostJob() {
       );
 
       toast.success(response.data.message);
+      navigate("/job/allJobs")
     } catch (error) {
       console.log("Error in posting job in frontend ", error);
       toast.error(error.response.data.message);
