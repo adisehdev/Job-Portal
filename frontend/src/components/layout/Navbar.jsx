@@ -10,6 +10,8 @@ function Navbar() {
   let { isAuthorized, setIsAuthorized, user } = useContext(Context);
   
   isAuthorized = isAuthorized || JSON.parse(localStorage.getItem("isAuthstr"));
+
+  console.log("isAuth navbar ",isAuthorized)
   const backend_url = import.meta.env.VITE_BACKEND_URL;
 
   
