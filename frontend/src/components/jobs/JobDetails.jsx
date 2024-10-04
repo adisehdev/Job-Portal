@@ -56,7 +56,7 @@ function JobDetails() {
               Category : <span>{job.category}</span>
             </p>
             <p>
-              Contry : <span>{job.contry}</span>
+              Country : <span>{job.country}</span>
             </p>
             <p>
               City : <span>{job.city}</span>
