@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "../../../context/UserContext";
+import Loader from "../Loader/Loader"
 
 function ApplicationForm() {
   const [name, setName] = useState("");
@@ -11,6 +12,7 @@ function ApplicationForm() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [resume, setResume] = useState(null);
+  const [loading,setLoading] = useState(false)
   const backend_url = import.meta.env.VITE_BACKEND_URL;
   
 
@@ -42,6 +44,7 @@ function ApplicationForm() {
     formData.append("jobId", id);
 
     try {
+      setLoading(true)
       const { data } = await axios.post(
         `${backend_url}/api/applications/postApplication`,
         formData,
@@ -52,6 +55,7 @@ function ApplicationForm() {
           },
         }
       );
+      setLoading(false)
       setName("");
       setEmail("");
       setCoverLetter("");
@@ -70,6 +74,8 @@ function ApplicationForm() {
     //only Job Seeker can apply
     navigate("/");
   }
+
+  if(loading)return <Loader/>
 
   return (
     <>
