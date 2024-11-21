@@ -56,9 +56,9 @@ function Register() {
     }
   };
 
-  if (isAuthorized) {
-    <Navigate to="/" />;
-  }
+  // if (isAuthorized) {
+  //   <Navigate to="/" />;
+  // }
 
   return (
     <>
