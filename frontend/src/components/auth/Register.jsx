@@ -47,7 +47,7 @@ function Register() {
       localStorage.setItem("isAuth",JSON.stringify(true))
       setUser({email,role})
       localStorage.setItem("userObj",JSON.stringify({email,role}))
-      navigate("/")
+      navigate("/") //go to home page
       
       
     } catch (error) {
