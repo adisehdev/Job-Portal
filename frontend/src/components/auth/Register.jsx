@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { RiLock2Fill } from "react-icons/ri";
@@ -15,6 +16,7 @@ function Register() {
   const [phone, setPhone] = useState(0);
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const navigate = useNavigate()
   const backend_url = import.meta.env.VITE_BACKEND_URL;
 
   const { isAuthorized, setIsAuthorized, user, setUser } = useContext(Context);
@@ -41,8 +43,12 @@ function Register() {
       setPassword("");
       setPhone("");
       setRole("");
-      setIsAuthorized(true)
+      setIsAuthorized(true);
+      localStorage.setItem("isAuth",JSON.stringify(true))
       setUser({email,role})
+      localStorage.setItem("userObj",JSON.stringify({email,role}))
+      navigate("/")
+      
       
     } catch (error) {
         console.log("Error in register frontend ",error)
