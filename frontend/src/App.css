@@ -1229,11 +1229,11 @@ nav .hamburger {
     padding-top: 120px;
   }
   nav {
-    position: fixed;
     width: 100%;
     left: 0;
     top: 0;
     z-index: 10;
+    margin-bottom: 20px;
   }
   nav .hamburger {
     display: block;

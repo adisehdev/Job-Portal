@@ -60,7 +60,7 @@ function Login() {
       <section className="authPage">
         <div className="container">
           <div className="header">
-            <img src="/jobPortalLogo.png" alt="logo" />
+            
             <h3>Login to your account</h3>
           </div>
           <form>
