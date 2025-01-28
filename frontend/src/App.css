@@ -1229,6 +1229,7 @@ nav .hamburger {
     padding-top: 120px;
   }
   nav {
+    position: fixed;
     width: 100%;
     left: 0;
     top: 0;
