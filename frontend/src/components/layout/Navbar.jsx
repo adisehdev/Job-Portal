@@ -114,7 +114,7 @@ import { Context } from "../../../context/UserContext";
 
 function Navbar() {
   const [show, setShow] = useState(false);
-  let { isAuthorized, setIsAuthorized, user } = useContext(Context);
+  let { isAuthorized, setIsAuthorized, user, setUser } = useContext(Context);
   
   isAuthorized = isAuthorized || JSON.parse(localStorage.getItem("isAuth"));
 
@@ -135,6 +135,7 @@ function Navbar() {
       );
       toast.success(response.data.message);
       setIsAuthorized(false);
+      setUser({});
       
       localStorage.setItem("isAuth",JSON.stringify(false))
       localStorage.setItem("userObj",JSON.stringify(null))
@@ -167,7 +168,7 @@ function Navbar() {
             </li>
             <li>
               {
-                user && <Link
+                Object.keys(user).length && <Link
                 to="/application/myApplications"
                 onClick={() => setShow(false)}
               >
@@ -177,7 +178,7 @@ function Navbar() {
               </Link>
               }
             </li>
-            {user && user.role === "Employer" ? (
+            {Object.keys(user).length && user.role === "Employer" ? (
               <>
                 <li>
                   <Link to={"/job/postJob"} onClick={() => setShow(false)}>
@@ -194,7 +195,7 @@ function Navbar() {
               <></>
             )}
             {
-              user ? (<button
+              Object.keys(user).length ? (<button
               onClick={() => {
                 handleLogout();
               }}
