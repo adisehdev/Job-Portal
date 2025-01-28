@@ -166,9 +166,9 @@ function Navbar() {
                 All Jobs
               </Link>
             </li>
-            <li>
-              {
-                Object.keys(user).length && <Link
+            {Object.keys(user).length && <li>
+              
+                 <Link
                 to="/application/myApplications"
                 onClick={() => setShow(false)}
               >
@@ -176,8 +176,8 @@ function Navbar() {
                   ? "Applicant's Applications"
                   : "My Applications"}
               </Link>
-              }
-            </li>
+              
+            </li>}
             {Object.keys(user).length && user.role === "Employer" ? (
               <>
                 <li>
