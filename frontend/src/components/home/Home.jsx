@@ -18,12 +18,12 @@ const Home = () => {
   
   
   const navigate = useNavigate()
-  useEffect(()=>{
+  // useEffect(()=>{
     
-    if(!isAuthorized && !JSON.parse(localStorage.getItem("isAuth"))){
-      navigate("/login")
-    }
-  },[isAuthorized])
+  //   if(!isAuthorized && !JSON.parse(localStorage.getItem("isAuth"))){
+  //     navigate("/login")
+  //   }
+  // },[isAuthorized])
   
   return (
     <>
