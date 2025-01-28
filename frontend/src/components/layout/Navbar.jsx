@@ -168,19 +168,19 @@ function Navbar() {
               </Link>
             </li>
             
-            {Object.keys(user).length && <li>
+            {Object.keys(user).length !==0 && <li>
               
                  <Link
                 to="/application/myApplications"
                 onClick={() => setShow(false)}
               >
-                {Object.keys(user).length && user.role === "Employer"
+                {Object.keys(user).length!==0 && user.role === "Employer"
                   ? "Applicant's Applications"
                   : "My Applications"}
               </Link>
               
             </li>}
-            {Object.keys(user).length && user.role === "Employer" ? (
+            {Object.keys(user).length !==0 && user.role === "Employer" ? (
               <>
                 <li>
                   <Link to={"/job/postJob"} onClick={() => setShow(false)}>
@@ -197,7 +197,7 @@ function Navbar() {
               null
             )}
             {
-              Object.keys(user).length ? (<button
+              Object.keys(user).length !==0 ? (<button
               onClick={() => {
                 handleLogout();
               }}
