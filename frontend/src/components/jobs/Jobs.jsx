@@ -33,9 +33,13 @@ function Jobs() {
         }
     }
 
+    // useEffect(()=>{getAllJobs()
+    //     if(!isAuthorized && !JSON.parse(localStorage.getItem("isAuth")))navigate("/")
+    // },[isAuthorized])
+
     useEffect(()=>{getAllJobs()
-        if(!isAuthorized && !JSON.parse(localStorage.getItem("isAuth")))navigate("/")
-    },[isAuthorized])
+        
+    },[])
 
     if(loading)return <Loader/>
 
@@ -51,7 +55,7 @@ function Jobs() {
                                     <p>{job.title}</p>
                                     <p>{job.category}</p>
                                     <p>{job.contry}</p>
-                                    <Link to={`/job/${job._id}`}>Job Details</Link>
+                                    {isAuthorized && <Link to={`/job/${job._id}`}>Job Details</Link>}
                                 </div>)
                         }
                     </div>
